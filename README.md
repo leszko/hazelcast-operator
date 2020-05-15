@@ -47,7 +47,7 @@ To create a new project, run the following command.
 Run the following commands to configure the Operator permissions.
    
     # Configure RBAC
-    oc apply -f operator-rbac.yaml
+    oc apply -f hazelcast-operator-rbac.yaml
 
 Run the following commands to configure the Hazelcast cluster permissions.
 
@@ -57,18 +57,25 @@ Run the following commands to configure the Hazelcast cluster permissions.
 
 To create the Hazelcast resource definition, run the following command.
 
-    oc apply -f hazelcastcluster.crd.yaml
+    oc apply -f hazelcastenterprisecluster.crd.yaml
 
+If you plan to use Hazelcast Open Source, run the following command instead.
+
+    oc apply -f hazelcastcluster.crd.yaml
 
 #### Step 3: Deploy Hazelcast Operator
 
 Deploy Hazelcast Enterprise Operator with the following command.
 
-    oc apply -f operator-rhel.yaml
+    oc apply -f hazelcast-enterprise-operator-rhel.yaml
 
-Note that if you prefer Docker Hub images, you can use `operator-docker-hub.yaml` instead.
+Note that you can also use the following configurations instead:
+* `hazelcast-operator-docker-hub.yaml` - Hazelcast Open Source (does not require Hazelcast License Key)
+* `hazelcast-enterprise-docker-hub.yaml` - Hazelcast Enterprise hosted on Docker Hub
 
-#### Step 4: Create Secret with Hazelcast License Key
+#### Step 4: Create Secret with Hazelcast License Key (Enterprise Only)
+
+Note that you can skip this step if you use an Open Source Operator (`hazelcast-operator-docker-hub.yaml`).
 
 Use base64 to encode your Hazelcast License Key. If you don't have one, get a trial key from this [link](https://hazelcast.com/hazelcast-enterprise-download/trial/).
 
@@ -139,7 +146,11 @@ Run the following commands to configure the Hazelcast cluster permissions.
 
 To create the Hazelcast resource definition, run the following command.
 
-    kubectl apply -f hazelcastcluster.crd.yaml
+    kubectl apply -f hazelcastenterprisecluster.crd.yaml
+
+If you plan to use Hazelcast Open Source, run the following command instead.
+
+    oc apply -f hazelcastcluster.crd.yaml
 
 #### Step 3: Deploy Hazelcast Operator
 
@@ -147,7 +158,13 @@ Deploy Hazelcast Enterprise Operator with the following command.
 
     kubectl --validate=false apply -f operator-docker-hub.yaml
 
-#### Step 4: Create Secret with Hazelcast License Key
+Note that you can also use the following configurations instead:
+* `hazelcast-operator-docker-hub.yaml` - Hazelcast Open Source (does not require Hazelcast License Key)
+* `hazelcast-enterprise-rhel.yaml` - Hazelcast Enterprise hosted on Red Hat Container Catalog
+
+#### Step 4: Create Secret with Hazelcast License Key (Enterprise Only)
+
+Note that you can skip this step if you use an Open Source Operator (`hazelcast-operator-docker-hub.yaml`).
 
 Use base64 to encode your Hazelcast License Key. If you don't have one, get a trial key from this [link](https://hazelcast.com/hazelcast-enterprise-download/trial/).
 
